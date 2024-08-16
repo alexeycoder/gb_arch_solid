@@ -7,7 +7,7 @@ import edu.alexey.solid.enums.FuelType;
 import edu.alexey.solid.enums.GearType;
 import edu.alexey.solid.enums.MovementPrinciple;
 
-public abstract class Car {
+public abstract class Car implements Refuelable, Cleanable {
 
 	// ctor
 
@@ -119,4 +119,62 @@ public abstract class Car {
 	public MovementPrinciple getMovementPrinciple() {
 		return MOVEMENT_PRINCIPLE_DEFAULT;
 	}
+
+	// Refuelable
+
+	protected GasStation gasStation;
+
+	public void setGasStation(GasStation gasStation) {
+		this.gasStation = gasStation;
+	}
+
+	private void ensureGasStationIsSet() {
+		if (gasStation == null) {
+			throw new IllegalStateException("GasStation is unset.");
+		}
+	}
+
+	public void fuel() {
+		ensureGasStationIsSet();
+
+		gasStation.fuel(this.fuelType);
+	}
+
+	// Cleanable
+
+	protected CleaningStation cleaningStation;
+
+	private void ensureCleaningStationIsSet() {
+		if (cleaningStation == null) {
+			throw new IllegalStateException("CleaningStation is unset.");
+		}
+	}
+
+	@Override
+	public void wipeMirrors() {
+		ensureCleaningStationIsSet();
+
+		if (cleaningStation.canWipeMirrors()) {
+			cleaningStation.wipeMirrors();
+		}
+	}
+
+	@Override
+	public void wipeWindshield() {
+		ensureCleaningStationIsSet();
+
+		if (cleaningStation.canWipeWindshield()) {
+			cleaningStation.wipeWindshield();
+		}
+	}
+
+	@Override
+	public void wipeLights() {
+		ensureCleaningStationIsSet();
+
+		if (cleaningStation.canWipeLights()) {
+			cleaningStation.wipeLights();
+		}
+	}
+
 }

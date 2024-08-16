@@ -1,10 +1,12 @@
 package edu.alexey.solid.abstractions;
 
+import edu.alexey.solid.enums.FuelType;
+
 public interface GasStation {
 
 	/**
-	 * Заправка
+	 * Заправить автомобиль.
 	 */
-	void fuel();
+	void fuel(FuelType fuelType);
 
 }
