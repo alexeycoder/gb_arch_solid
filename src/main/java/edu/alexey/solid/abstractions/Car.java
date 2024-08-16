@@ -125,12 +125,14 @@ public abstract class Car implements Refuelable, Cleanable {
 	// Refuelable
 
 	@Override
-	public boolean fuel(GasService gasService) {
+	public boolean fuel(FuelService gasService) {
 
 		if (Objects.requireNonNull(gasService).hasFuel(fuelType)) {
 			gasService.fuel(fuelType);
+			System.out.println("Заправлена успешно.");
 			return true;
 		}
+		System.out.println("Не заправлена: не оказалось нужного топлива.");
 		return false;
 	}
 

@@ -6,5 +6,5 @@ public interface Refuelable {
 
 	FuelType getFuelType();
 
-	boolean fuel(GasService gasService);
+	boolean fuel(FuelService gasService);
 }

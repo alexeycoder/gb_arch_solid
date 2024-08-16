@@ -2,21 +2,15 @@ package edu.alexey.solid.concrete;
 
 import java.util.Set;
 
-import edu.alexey.solid.abstractions.CleaningService;
-import edu.alexey.solid.abstractions.GasService;
+import edu.alexey.solid.abstractions.GasStation;
 import edu.alexey.solid.enums.FuelType;
 import edu.alexey.solid.enums.WipablePart;
 
-public class GasolineOnlyStation implements GasService, CleaningService {
+public class GasolineOnlyStation implements GasStation {
 
 	@Override
 	public boolean hasFuel(FuelType fuelType) {
 		return fuelType == FuelType.GASOLINE;
-	}
-
-	@Override
-	public void fuel(FuelType fuelType) {
-
 	}
 
 	@Override

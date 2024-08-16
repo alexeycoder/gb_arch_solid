@@ -2,7 +2,7 @@ package edu.alexey.solid.abstractions;
 
 import edu.alexey.solid.enums.FuelType;
 
-public interface GasService {
+public interface FuelService {
 
 	/**
 	 * Имеется ли в службе заправки указанное топливо.

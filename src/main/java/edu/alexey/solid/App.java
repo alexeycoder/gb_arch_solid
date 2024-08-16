@@ -1,6 +1,15 @@
 package edu.alexey.solid;
 
 import edu.alexey.solid.abstractions.Car;
+import edu.alexey.solid.abstractions.GasStation;
+import edu.alexey.solid.concrete.FlyingCar;
+import edu.alexey.solid.concrete.GasolineOnlyStation;
+import edu.alexey.solid.concrete.Harverster;
+import edu.alexey.solid.concrete.SportCar;
+import edu.alexey.solid.concrete.UniversalGasStation;
+import edu.alexey.solid.enums.FuelType;
+import edu.alexey.solid.enums.GearType;
+import edu.alexey.solid.enums.WipablePart;
 
 /**
  * 1. Спроектировать абстрактный класс Car у которого должны быть свойства:
@@ -44,6 +53,37 @@ import edu.alexey.solid.abstractions.Car;
 public class App {
 	public static void main(String[] args) {
 
+		Harverster harverster = new Harverster("Bucher", "BKM 2020", FuelType.DIESEL, GearType.MANUAL, 1);
+		SportCar sportCar = new SportCar("Polaris", "Slingshot SL", GearType.MANUAL, 1);
+		FlyingCar flyingCar = new FlyingCar("Nonsence", "AA1000", GearType.AUTO, 4, 1);
+
+		GasStation uniGasStation = new UniversalGasStation();
+		GasStation gasGasStation = new GasolineOnlyStation();
+
+		System.out.println("\nУборочная машина:");
+		harverster.drive();
+		System.out.println("Попытка заправки на станции, где нет диз.топлива:");
+		harverster.fuel(gasGasStation);
+		harverster.wipe(gasGasStation, WipablePart.LIGHTS, WipablePart.MIRROR);
+		System.out.println("Стоимость обслуживания: " + calcMaintenance(harverster));
+
+		System.out.println("\nСпортивная машина:");
+		sportCar.drive();
+		sportCar.fuel(gasGasStation);
+		sportCar.wipe(gasGasStation, WipablePart.MIRROR, WipablePart.WINDSHIELD, WipablePart.LIGHTS);
+		sportCar.drive();
+		sportCar.fuel(uniGasStation);
+		sportCar.wipe(uniGasStation, WipablePart.MIRROR, WipablePart.WINDSHIELD, WipablePart.LIGHTS);
+		System.out.println("Стоимость обслуживания: " + calcMaintenance(sportCar));
+
+		System.out.println("\nЛетающая машина:");
+		flyingCar.drive();
+		flyingCar.fuel(gasGasStation);
+		flyingCar.wipe(gasGasStation, WipablePart.MIRROR, WipablePart.WINDSHIELD, WipablePart.LIGHTS);
+		flyingCar.drive();
+		flyingCar.fuel(uniGasStation);
+		flyingCar.wipe(uniGasStation, WipablePart.MIRROR, WipablePart.WINDSHIELD, WipablePart.LIGHTS);
+		System.out.println("Стоимость обслуживания: " + calcMaintenance(flyingCar));
 	}
 
 	static double calcMaintenance(Car car) {

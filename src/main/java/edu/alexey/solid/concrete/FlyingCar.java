@@ -8,9 +8,12 @@ import edu.alexey.solid.enums.MovementPrinciple;
 
 public class FlyingCar extends Car {
 
-	public FlyingCar(String brand, String model, CarType type, FuelType fuelType, GearType gearType, int wheelsCount,
+	static final CarType TYPE = CarType.SPORT;
+	static final FuelType FUEL_TYPE = FuelType.GASOLINE;
+
+	public FlyingCar(String brand, String model, GearType gearType, int wheelsCount,
 			double engineCapacity) {
-		super(brand, model, type, fuelType, gearType, wheelsCount, engineCapacity);
+		super(brand, model, TYPE, FUEL_TYPE, gearType, wheelsCount, engineCapacity);
 	}
 
 	@Override
