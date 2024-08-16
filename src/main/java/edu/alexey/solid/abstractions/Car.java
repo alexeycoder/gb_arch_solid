@@ -1,11 +1,13 @@
 package edu.alexey.solid.abstractions;
 
 import java.awt.Color;
+import java.util.Objects;
 
 import edu.alexey.solid.enums.CarType;
 import edu.alexey.solid.enums.FuelType;
 import edu.alexey.solid.enums.GearType;
 import edu.alexey.solid.enums.MovementPrinciple;
+import edu.alexey.solid.enums.WipablePart;
 
 public abstract class Car implements Refuelable, Cleanable {
 
@@ -122,58 +124,38 @@ public abstract class Car implements Refuelable, Cleanable {
 
 	// Refuelable
 
-	protected GasStation gasStation;
+	@Override
+	public boolean fuel(GasService gasService) {
 
-	public void setGasStation(GasStation gasStation) {
-		this.gasStation = gasStation;
-	}
-
-	private void ensureGasStationIsSet() {
-		if (gasStation == null) {
-			throw new IllegalStateException("GasStation is unset.");
+		if (Objects.requireNonNull(gasService).hasFuel(fuelType)) {
+			gasService.fuel(fuelType);
+			return true;
 		}
-	}
-
-	public void fuel() {
-		ensureGasStationIsSet();
-
-		gasStation.fuel(this.fuelType);
+		return false;
 	}
 
 	// Cleanable
 
-	protected CleaningStation cleaningStation;
-
-	private void ensureCleaningStationIsSet() {
-		if (cleaningStation == null) {
-			throw new IllegalStateException("CleaningStation is unset.");
-		}
+	/**
+	 * У машины "по-умолчанию" имеются все протираемые части.
+	 */
+	@Override
+	public boolean hasWipable(WipablePart wipable) {
+		return true;
 	}
 
 	@Override
-	public void wipeMirrors() {
-		ensureCleaningStationIsSet();
-
-		if (cleaningStation.canWipeMirrors()) {
-			cleaningStation.wipeMirrors();
+	public void wipe(CleaningService cleaningService, WipablePart... wipables) {
+		Objects.requireNonNull(cleaningService);
+		if (wipables == null || wipables.length == 0) {
+			throw new IllegalArgumentException("wipables");
 		}
-	}
 
-	@Override
-	public void wipeWindshield() {
-		ensureCleaningStationIsSet();
+		for (WipablePart wipable : wipables) {
 
-		if (cleaningStation.canWipeWindshield()) {
-			cleaningStation.wipeWindshield();
-		}
-	}
+			if (this.hasWipable(wipable) && cleaningService.canWipe(wipable))
+				cleaningService.wipe(wipable);
 
-	@Override
-	public void wipeLights() {
-		ensureCleaningStationIsSet();
-
-		if (cleaningStation.canWipeLights()) {
-			cleaningStation.wipeLights();
 		}
 	}
 

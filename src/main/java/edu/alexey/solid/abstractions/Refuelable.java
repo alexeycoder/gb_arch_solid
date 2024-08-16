@@ -1,11 +1,10 @@
 package edu.alexey.solid.abstractions;
 
+import edu.alexey.solid.enums.FuelType;
+
 public interface Refuelable {
 
-	void setGasStation(GasStation gasStation);
+	FuelType getFuelType();
 
-	/**
-	 * Заправка.
-	 */
-	void fuel();
+	boolean fuel(GasService gasService);
 }

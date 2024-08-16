@@ -1,12 +1,11 @@
 package edu.alexey.solid.concrete;
 
 import edu.alexey.solid.abstractions.Car;
-import edu.alexey.solid.abstractions.GasStation;
 import edu.alexey.solid.enums.CarType;
 import edu.alexey.solid.enums.FuelType;
 import edu.alexey.solid.enums.GearType;
 
-public class Harverster extends Car implements GasStation {
+public class Harverster extends Car {
 
 	static final CarType TYPE = CarType.TRUCK;
 	static final int WHEELS = 6;
@@ -54,32 +53,6 @@ public class Harverster extends Car implements GasStation {
 	 */
 	public void sweeping() {
 		System.out.println("Подметает улицу.");
-	}
-
-	// Реализация 
-
-	@Override
-	public void fuel() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wipeMirrors() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wipeWindshield() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wipeLights() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
